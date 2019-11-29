@@ -17,10 +17,6 @@
   // the rest needs to be take out from other elements
   $asArr = explode(': {', $nested);
   // $last_one = $asArr[count($asArr) - 1];
-  
-  // $tmp_arr = array($asArr[0]);
-  // echo $tmp_arr[0];
-
 
   $source_arr = array();
   $counter = 0;
@@ -30,27 +26,31 @@
   array_push($source_arr, array($asArr[0]));
   array_splice($asArr, 0, 1); // remove the first element which is alreay inserted into array
 
-
+  
   foreach( $asArr as $val ){
     $spe_arr = explode("},\n  ", $val);
     // $spe_arr[0] is 2nd level key & value
 
     // echo $spe_arr[0];
     // inside the 2nd level context
-    $newArr = preg_split("/(:|,)/", $spe_arr[0]);
-    $string = str_replace("\n", "", $newArr[2]); // remove the new line character
-    // echo $string;
-    // echo "\n";
-    // echo "\n";
-    // echo "\n";
+    $allKey_val = preg_split("/(:|,)/", $spe_arr[0]);
+    $count = 0;
+    while ($allKey_val[$count]){
+      $secKey = str_replace("\n", "", $allKey_val[$count]); // remove the new line character
+      $secKey = str_replace(" ", "", $secKey); // remove the new line character
+      $secVal = str_replace("\n", "", $allKey_val[$count + 1]);
+      $secVal = str_replace(" ", "", $secVal);
+      $tmp_arr = array($secKey, $secVal);
+      array_push($source_arr[$counter], $tmp_arr);
 
-    if ($spe_arr[1]){
-      echo "asdsadfasdf";
+      // echo $secKey;
+      // echo $secVal;
+      // echo "\n";
+      $count = $count + 2;
     }
 
-
+    $counter = $counter + 1;
     // $spe_arr[1] is the 1st level key
-
     if ($spe_arr[1] !== NULL) {
       array_push($source_arr, array($spe_arr[1]));
     }
@@ -64,9 +64,7 @@
     // echo $first_part[0];
     // echo "\n";
   }
-  // var_dump($source_arr); // show the whole array
+  var_dump($source_arr); // show the whole array
 
 
-  // echo $inLastOne[0];
-  // echo "\n";
 ?>
