@@ -1,10 +1,18 @@
 <?php
-  echo "here";
-  include 'input-source.jsx';
+  // $answer_file = 'input-source-consolidated.jsx';
+  // $myfile = fopen($answer_file, "w");
+  $source = file_get_contents("input-source.jsx");//将整个文件内容读入到一个字符串中
+  // echo $source;
+  // $asArr = explode(' {', $source );
+  // echo $asArr;
 
-  
-  // $myfile = fopen('input-source.jsx', "r") or die("Unable to open file!");
-  // $source = fread($myfile, filesize('input-source.jsx'));
-  // echo $source[1];
-  // fclose($myfile); // good programming practice 
+
+  // delete the 1st and last line of the string
+  $result = preg_replace('/^.+\n/', '', $source);
+  $result = preg_replace('/\n}$/', '', $result);
+  // echo $result;
+
+  $asArr = explode(': {', $result );
+  echo "afas". $asArr[1];
+  // echo "\n";
 ?>
