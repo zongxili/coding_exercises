@@ -91,8 +91,19 @@
       }
     }
   }
-  var_dump($source_arr); // show the whole array
+  // var_dump($source_arr); // show the whole array
 
   $result_file = fopen($dist_file_name, "w") or die("Unable to open file!");
-  fwrite($result_file, "something here");
+  fwrite($result_file, "export default {\n");
+  for ($a = 0; $a < $source_length; $a++){
+    echo $source_arr[$a][0];
+    fwrite($result_file, "  $source_arr[$a][0]\n");
+
+  }
+
+
+
+
+  fwrite($result_file, "}");
+
 ?>
