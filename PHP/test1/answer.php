@@ -29,14 +29,10 @@
     while ($allKey_val[$count]){
       $secKey = str_replace("\n", "", $allKey_val[$count]); // remove the new line character
       $secVal = str_replace("\n", "", $allKey_val[$count + 1]);
-      if ($secKey !== " " && $secVal !== ""){
-        
-      }
       $tmp_arr = array($secKey, $secVal);
       array_push($source_arr[$counter], $tmp_arr);
       $count = $count + 2;
     }
-
     $counter = $counter + 1;
     // $spe_arr[1] is the 1st level key
     if ($spe_arr[1] !== NULL) {
