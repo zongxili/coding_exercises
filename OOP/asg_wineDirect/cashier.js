@@ -11,9 +11,10 @@ const fs = require("fs");
  * contains the quantity of the item and the total price after the discount.
  */
 class singleItemInBill {
-	constructor(quantity, total_price) {
+	constructor(quantity, total_price, discount) {
 		this.quantity = quantity;
 		this.total_price = total_price;
+		this.discount = discount;
 	}
 }
 
@@ -28,6 +29,9 @@ class totalBill {
 	}
 	addToBill(itemPrice) {
 		this.totalPrice += itemPrice;
+	}
+	getDiscountInfo() {
+		return "DISCOUNT: $5 off for every $100.";
 	}
 	getPriceAfterSales() {
 		let discount = Math.floor(this.totalPrice / 100) * 5;
@@ -52,7 +56,7 @@ for (let a = 0; a < itemArr.length; a++){ // search the item info by the input c
 	if (item_db[itemArr[a][0]]){
 		let name = item_db[itemArr[a][0]].itemName;
 		let totalPriceForSingleItem = item_db[itemArr[a][0]].sales(itemArr[a][1]);
-		itemsInBill[name] = new singleItemInBill(itemArr[a][1], parseFloat(totalPriceForSingleItem.toFixed(2)));
+		itemsInBill[name] = new singleItemInBill(itemArr[a][1], parseFloat(totalPriceForSingleItem.toFixed(2)), item_db[itemArr[a][0]].discount);
 		aBill.addToBill(totalPriceForSingleItem);
 	}
 	else undefinedCode.push(itemArr[a][0]);
@@ -67,4 +71,5 @@ if (undefinedCode.length !== 0){
 	})
 	console.log();
 }
+console.log(aBill.getDiscountInfo());
 console.log(`Total Price is $${aBill.getPriceAfterSales()}.`);
